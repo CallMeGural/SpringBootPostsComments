@@ -2,7 +2,9 @@ package pl.fg.springpostcomment.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pl.fg.springpostcomment.dtos.CommentMapper;
 import pl.fg.springpostcomment.model.Comment;
+import pl.fg.springpostcomment.model.CommentDto;
 import pl.fg.springpostcomment.service.CommentService;
 
 import java.util.List;
@@ -14,8 +16,8 @@ public class CommentController {
     private final CommentService commentService;
 
     @GetMapping("/comments/posts/{id}")
-    public List<Comment> getCommentsFromPost(@PathVariable long id,int page) {
-        return commentService.getCommentsFromPost(id,page);
+    public List<CommentDto> getCommentsFromPost(@PathVariable long id, int page) {
+        return CommentMapper.mapCommentsToDtos(commentService.getCommentsFromPost(id,page));
     }
 
     @GetMapping("/comments/{commentId}/posts/{postId}")
